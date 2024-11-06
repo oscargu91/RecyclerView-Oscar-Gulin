@@ -60,7 +60,7 @@ public class ContactoAdapter extends RecyclerView.Adapter <ContactoAdapter.Conta
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listaContactos.size();
     }
 
 
