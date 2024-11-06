@@ -58,8 +58,12 @@ public class ContactoAdapter extends RecyclerView.Adapter <ContactoAdapter.Conta
             holder.Telefono.setText("Teléfono: " + contacto.getTelefono());
         }
 
-
     @Override
+    public int getItemCount() {
+        return 0;
+    }
+
+
     public int getCount() {
         return listaContactos.size();
     }
