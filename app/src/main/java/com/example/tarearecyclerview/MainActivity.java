@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         // Crear y asociar el adaptador
         adapter = new ContactoAdapter(listaContactos, this);
         recyclerView.setAdapter(adapter);
-
+        recyclerView.setVerticalScrollBarEnabled(true);
 
         // Establecer el LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
