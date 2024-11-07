@@ -1,6 +1,8 @@
 package com.example.tarearecyclerview;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ContactoAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private ContactoAdapter adapter;
@@ -40,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Crear y asociar el adaptador
-        adapter = new ContactoAdapter(listaContactos, this);
+        adapter = new ContactoAdapter(listaContactos, MainActivity.this,MainActivity.this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setVerticalScrollBarEnabled(true);
+
 
         // Establecer el LayoutManager
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setVerticalScrollBarEnabled(true);
 
 
 
@@ -55,5 +58,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+
+    //Fuera del onCreate implemento el onItemClick
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Contacto contacto = listaContactos.get(position);
+        String mensaje = "Nombre: " + contacto.getNombre() + " - Teléfono: " + contacto.getTelefono();
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

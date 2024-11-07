@@ -16,11 +16,20 @@ public class ContactoAdapter extends RecyclerView.Adapter <ContactoAdapter.Conta
 
     private List<Contacto> listaContactos;
     private Context contexto;
+    private OnItemClickListener listener;
+
+    // Interfaz para manejar los clics
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
 
 
-    public ContactoAdapter(List<Contacto> listaContactos, Context contexto) {
+
+    //Constructor del adaptador
+    public ContactoAdapter(List<Contacto> listaContactos, Context contexto, OnItemClickListener listener) {
         this.listaContactos = listaContactos;
         this.contexto = contexto;
+        this.listener = listener;
     }
 
     @NonNull
@@ -29,7 +38,7 @@ public class ContactoAdapter extends RecyclerView.Adapter <ContactoAdapter.Conta
         //Inflo el layout del contacto
         View itemView = LayoutInflater.from(contexto)
                 .inflate(R.layout.layout_contacto, parent, false);
-        return new ContactoViewHolder(itemView);
+        return new ContactoViewHolder(itemView,listener);
     }
 
     // Clase ViewHolder para mantener las vistas de cada contacto
@@ -37,14 +46,23 @@ public class ContactoAdapter extends RecyclerView.Adapter <ContactoAdapter.Conta
         ImageView Imagen;
         TextView Nombre, Apellidos, Email, Telefono;
 
-        public ContactoViewHolder(View itemView) {
+        public ContactoViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             Imagen = itemView.findViewById(R.id.idImagen);
             Nombre = itemView.findViewById(R.id.idNombre);
             Apellidos = itemView.findViewById(R.id.idApellidos);
             Email = itemView.findViewById(R.id.idEmail);
             Telefono = itemView.findViewById(R.id.idTelefono);
-        }
+
+            // Configurar el click para cada elemento, pasando la View y la posición
+            itemView.setOnClickListener(view -> {
+                if (listener != null) {
+                    listener.onItemClick(view, getAdapterPosition());
+                }
+            });
+
+
+        };
     }
 
 
